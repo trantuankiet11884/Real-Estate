@@ -1,7 +1,7 @@
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
-const dbc = require("./configs/dbConnect");
+const dbc = require("./config/dbConnect");
 const app = express();
 
 app.use(
