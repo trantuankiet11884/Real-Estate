@@ -9,10 +9,14 @@ import {
   PublicLayout,
   Search,
 } from "./pages/public/index.jsx";
+import { Modal } from "./components/index.jsx";
+import { useAppStore } from "./store/useAppStore.jsx";
 
 const App = () => {
+  const { isShowModal } = useAppStore();
   return (
     <div className="">
+      {isShowModal && <Modal />}
       <Routes>
         <Route path={path.PUBLIC_LAYOUT} element={<PublicLayout />}>
           <Route path={path.HOME} element={<Home />} />
