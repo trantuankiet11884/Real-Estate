@@ -1,3 +1,19 @@
-### Register
 POST http://localhost:5000/api/auth/register
-Content-Type: : application/json;
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "name": "tk",
+    "phone": "123412123",
+    "role": "AGENT"
+}
+
+###
+
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+    "password": "123456s",
+    "phone": "123412123"
+}

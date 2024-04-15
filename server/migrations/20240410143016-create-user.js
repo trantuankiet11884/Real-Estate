@@ -6,14 +6,19 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID, // Kiểu dữ liệu UUID
-        defaultValue: Sequelize.UUIDV4,
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
       name: {
         type: Sequelize.STRING,
       },
       email: {
         type: Sequelize.STRING,
+        unique: true,
+      },
+      phone: {
+        type: Sequelize.STRING,
+        unique: true,
       },
       address: {
         type: Sequelize.STRING,
@@ -22,7 +27,8 @@ module.exports = {
         type: Sequelize.STRING,
       },
       role: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ENUM(["ADMIN", "AGENT", "USER"]),
+        defaultValue: "USER",
       },
       avatar: {
         type: Sequelize.STRING,

@@ -9,9 +9,25 @@ const { stringReq, numberReq } = require("../middlewares/joiSchema.js");
 router.post(
   "/register",
   validateDTO(
-    Joi.object({ password: stringReq, name: stringReq, phone: numberReq })
+    Joi.object({
+      password: stringReq,
+      name: stringReq,
+      phone: numberReq,
+      role: stringReq,
+    })
   ),
   ctrls.register
+);
+
+router.post(
+  "/login",
+  validateDTO(
+    Joi.object({
+      password: stringReq,
+      phone: numberReq,
+    })
+  ),
+  ctrls.login
 );
 
 module.exports = router;

@@ -1,18 +1,25 @@
 const errorHandler = (error, req, res, next) => {
+  const formatedMessage = error?.message?.replace(`\"`, "");
+
   const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
   return res.status(statusCode).json({
     success: false,
-    message: error.message,
+    message: formatedMessage,
   });
 };
 
 const throwErrorWithStatus = (code, message, res, next) => {
-  const error = new Error(message);
-  res.status(code).json({
-    success: false,
-    message: message,
-  });
+  const formatedMessage = message?.replace(`\"`, "");
+  const error = new Error(formatedMessage);
+  res.status(code);
   next(error);
 };
 
-module.exports = { errorHandler, throwErrorWithStatus };
+const badRequestExeption = (req, res, next) => {
+  const error = new Error(`Route ${req.originalUrl} Not Found`);
+
+  res.status(404);
+  next(error);
+};
+
+module.exports = { errorHandler, throwErrorWithStatus, badRequestExeption };
