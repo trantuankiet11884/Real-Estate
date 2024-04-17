@@ -11,7 +11,8 @@ import {
 } from "./pages/public/index.jsx";
 import { Modal } from "./components/index.jsx";
 import { useAppStore } from "./store/useAppStore.jsx";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   const { isShowModal } = useAppStore();
   return (
@@ -26,6 +27,21 @@ const App = () => {
           <Route path={path.OUR_AGENTS} element={<OurAgents />} />
         </Route>
       </Routes>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        to
+      />
+      {/* Same as */}
+      <ToastContainer />
     </div>
   );
 };

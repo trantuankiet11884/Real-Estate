@@ -15,7 +15,7 @@ export default function InputForm({
   placeholder,
 }) {
   return (
-    <div className={twMerge(clsx("flex flex-col gap-2 "))}>
+    <div className={twMerge(clsx("flex flex-col gap-2 ", containerClass))}>
       {label && (
         <label className="font-medium text-main-700" htmlFor={id}>
           {label}
@@ -29,7 +29,7 @@ export default function InputForm({
         placeholder={placeholder}
       />
       {errors && errors[id] && (
-        <smal className="text-red-500 text-xs">{errors[id]?.message}</smal>
+        <small className="text-red-500 text-xs">{errors[id]?.message}</small>
       )}
     </div>
   );
