@@ -1,3 +1,4 @@
+import { apiGetCurrent } from "@/apis/user";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 export const useUserStore = create(
@@ -5,7 +6,11 @@ export const useUserStore = create(
     (set, get) => ({
       token: null,
       current: null,
-      test: "test",
+      setToken: (token) => set(() => ({ token })),
+      getCurrent: async () => {
+        const user = await apiGetCurrent();
+        if (user.success) return set(() => ({ current: user.currentUser }));
+      },
     }),
     {
       name: "real estate",

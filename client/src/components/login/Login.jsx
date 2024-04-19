@@ -5,18 +5,14 @@ import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import { apiLogin, apiRegister } from "@/apis/auth";
-import withRouter from "@/hocs/withRouter";
 import { useAppStore } from "@/store/useAppStore";
-console.log(
-  Object.entries({
-    foo: 0,
-    bar: 1,
-  }).filter(([key]) => !["foo"].includes(key))
-);
-const Login = ({ navigate }) => {
+import { useUserStore } from "@/store/useUserStore";
+
+const Login = () => {
   const { setModal } = useAppStore();
   const [varriant, setVarriant] = useState("LOGIN");
   const [isLoading, setIsLoading] = useState(false);
+  const { token, setToken } = useUserStore();
   const {
     register,
     formState: { errors },
@@ -28,7 +24,8 @@ const Login = ({ navigate }) => {
     if (varriant === "REGISTER") {
       setIsLoading(true);
       const res = await apiRegister(data);
-      toggleLoading(false);
+      setIsLoading(false);
+
       if (res.success) {
         Swal.fire({
           icon: "success",
@@ -52,7 +49,7 @@ const Login = ({ navigate }) => {
       if (res.success) {
         Swal.fire({
           icon: "success",
-          title: "Congrats !!!",
+          title: `Congrats, ${res.message}!!!`,
           text: res.message,
           showConfirmButton: true,
           confirmButtonText: "OK !",
@@ -61,6 +58,9 @@ const Login = ({ navigate }) => {
             setModal(false, null);
           }
         });
+        setToken(res.accessToken);
+        // toast.success(res.message);
+        // setModal(false, null);
       } else {
         toast.error(res.message);
       }
@@ -157,4 +157,4 @@ const Login = ({ navigate }) => {
   );
 };
 
-export default withRouter(Login);
+export default Login;
