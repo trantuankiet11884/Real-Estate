@@ -11,6 +11,7 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
         type: Sequelize.STRING,
@@ -19,16 +20,22 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
         unique: true,
+        allowNull: false,
       },
       address: {
         type: Sequelize.STRING,
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      role: {
-        type: Sequelize.ENUM(["ADMIN", "AGENT", "USER"]),
-        defaultValue: "USER",
+      roleCode: {
+        type: Sequelize.STRING,
+        references: {
+          model: "Roles",
+          key: "code",
+        },
+        allowNull: false,
       },
       avatar: {
         type: Sequelize.STRING,

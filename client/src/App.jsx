@@ -16,7 +16,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useUserStore } from "./store/useUserStore.jsx";
 const App = () => {
   const { isShowModal } = useAppStore();
-  const { getCurrent, current } = useUserStore();
+  const { getCurrent, current, token } = useUserStore();
   useEffect(() => {
     getCurrent();
   }, [token]);
