@@ -1,5 +1,6 @@
 const { throwErrorWithStatus } = require("./errorHandler");
 const jwt = require("jsonwebtoken");
+const db = require("../models");
 
 const verifyToken = (req, res, next) => {
   const token = req.headers?.authorization?.startsWith("Bearer");
@@ -13,4 +14,28 @@ const verifyToken = (req, res, next) => {
   });
 };
 
-module.exports = { verifyToken };
+const isAgent = async (req, res, next) => {
+  const { roleCode } = req.user;
+  if (roleCode === "ROU") {
+    return throwErrorWithStatus(401, `You Do Not Have Access`, res, next);
+  }
+  next();
+};
+
+const isAdmin = async (req, res, next) => {
+  const { roleCode } = req.user;
+  if (roleCode !== "ROA") {
+    return throwErrorWithStatus(401, `You Do Not Have Access`, res, next);
+  }
+  next();
+};
+
+const isOwner = async (req, res, next) => {
+  const { roleCode } = req.user;
+  if (roleCode === "ROO" || roleCode === "ROU") {
+    return throwErrorWithStatus(401, `You Do Not Have Access`, res, next);
+  }
+  next();
+};
+
+module.exports = { verifyToken, isAdmin, isAgent, isOwner };
