@@ -16,7 +16,7 @@ const verifyToken = (req, res, next) => {
 
 const isAgent = async (req, res, next) => {
   const { roleCode } = req.user;
-  if (roleCode === "ROU") {
+  if (roleCode !== "ROA" || roleCode !== "ROO" || roleCode !== "ROB") {
     return throwErrorWithStatus(401, `You Do Not Have Access`, res, next);
   }
   next();
@@ -32,7 +32,7 @@ const isAdmin = async (req, res, next) => {
 
 const isOwner = async (req, res, next) => {
   const { roleCode } = req.user;
-  if (roleCode === "ROO" || roleCode === "ROU") {
+  if (roleCode !== "ROA" || roleCode !== "ROO") {
     return throwErrorWithStatus(401, `You Do Not Have Access`, res, next);
   }
   next();
